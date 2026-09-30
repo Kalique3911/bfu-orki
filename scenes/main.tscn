@@ -1,0 +1,414 @@
+[gd_scene load_steps=22 format=3 uid="uid://djrbduegymb45"]
+
+[ext_resource type="Texture2D" uid="uid://k2rkv7aobint" path="res://assets/sprites/world/background.png" id="bg"]
+[ext_resource type="PackedScene" uid="uid://dmocoi8hl15tq" path="res://scenes/coin.tscn" id="coin"]
+[ext_resource type="PackedScene" path="res://scenes/door.tscn" id="door"]
+[ext_resource type="AudioStream" uid="uid://y6xcq3ly8og3" path="res://assets/audio/door.wav" id="doorsnd"]
+[ext_resource type="Texture2D" uid="uid://lwo5m3lteldu" path="res://assets/sprites/world/ground.png" id="ground"]
+[ext_resource type="Texture2D" uid="uid://cfrhsjt5g2oed" path="res://assets/sprites/ui/heart_full.png" id="heart"]
+[ext_resource type="AudioStream" uid="uid://bccwrse1jn264" path="res://assets/audio/hurt.wav" id="hurt"]
+[ext_resource type="AudioStream" uid="uid://citofdywdjl4g" path="res://assets/audio/lose.wav" id="lose"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="main"]
+[ext_resource type="AudioStream" uid="uid://cvlemtomvpha5" path="res://assets/audio/music.wav" id="music"]
+[ext_resource type="Texture2D" uid="uid://c0dlhdt6adeoy" path="res://assets/sprites/world/platform.png" id="platform"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/spike.tscn" id="spike"]
+[ext_resource type="AudioStream" uid="uid://b40souhxqsm8u" path="res://assets/audio/win.wav" id="win"]
+
+[sub_resource type="RectangleShape2D" id="Rect_900x64"]
+size = Vector2(900, 64)
+
+[sub_resource type="RectangleShape2D" id="Rect_660x64"]
+size = Vector2(660, 64)
+
+[sub_resource type="RectangleShape2D" id="Rect_580x64"]
+size = Vector2(580, 64)
+
+[sub_resource type="RectangleShape2D" id="Rect_128x32"]
+size = Vector2(128, 32)
+
+[sub_resource type="RectangleShape2D" id="Rect_96x32"]
+size = Vector2(96, 32)
+
+[sub_resource type="RectangleShape2D" id="Rect_20x1400"]
+size = Vector2(20, 1400)
+
+[sub_resource type="RectangleShape2D" id="Rect_4000x100"]
+size = Vector2(4000, 100)
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("main")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 1)
+motion_mirroring = Vector2(960, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("bg")
+centered = false
+
+[node name="Level" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="Ground1" type="StaticBody2D" parent="Level"]
+position = Vector2(0, 480)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Ground1"]
+texture_repeat = 2
+texture = ExtResource("ground")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 900, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ground1"]
+position = Vector2(450, 32)
+shape = SubResource("Rect_900x64")
+
+[node name="Ground2" type="StaticBody2D" parent="Level"]
+position = Vector2(1040, 480)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Ground2"]
+texture_repeat = 2
+texture = ExtResource("ground")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 660, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ground2"]
+position = Vector2(330, 32)
+shape = SubResource("Rect_660x64")
+
+[node name="Ground3" type="StaticBody2D" parent="Level"]
+position = Vector2(1820, 480)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Ground3"]
+texture_repeat = 2
+texture = ExtResource("ground")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 580, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ground3"]
+position = Vector2(290, 32)
+shape = SubResource("Rect_580x64")
+
+[node name="Platform1" type="StaticBody2D" parent="Level"]
+position = Vector2(300, 400)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform1"]
+texture_repeat = 2
+texture = ExtResource("platform")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform1"]
+position = Vector2(64, 16)
+shape = SubResource("Rect_128x32")
+
+[node name="Platform2" type="StaticBody2D" parent="Level"]
+position = Vector2(520, 340)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform2"]
+texture_repeat = 2
+texture = ExtResource("platform")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform2"]
+position = Vector2(64, 16)
+shape = SubResource("Rect_128x32")
+
+[node name="Platform3" type="StaticBody2D" parent="Level"]
+position = Vector2(1250, 380)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform3"]
+texture_repeat = 2
+texture = ExtResource("platform")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform3"]
+position = Vector2(63, 18)
+shape = SubResource("Rect_128x32")
+
+[node name="Platform4" type="StaticBody2D" parent="Level"]
+position = Vector2(1560, 360)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform4"]
+texture_repeat = 2
+texture = ExtResource("platform")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform4"]
+position = Vector2(48, 16)
+shape = SubResource("Rect_96x32")
+
+[node name="Platform5" type="StaticBody2D" parent="Level"]
+position = Vector2(2050, 400)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform5"]
+texture_repeat = 2
+texture = ExtResource("platform")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform5"]
+position = Vector2(64, 16)
+shape = SubResource("Rect_128x32")
+
+[node name="WallLeft" type="StaticBody2D" parent="Level"]
+position = Vector2(-10, 270)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/WallLeft"]
+shape = SubResource("Rect_20x1400")
+
+[node name="WallRight" type="StaticBody2D" parent="Level"]
+position = Vector2(2410, 270)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/WallRight"]
+shape = SubResource("Rect_20x1400")
+
+[node name="Coins" type="Node2D" parent="Level"]
+
+[node name="Coin1" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(364, 372)
+
+[node name="Coin2" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(584, 312)
+
+[node name="Coin3" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(780, 452)
+
+[node name="Coin4" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(1314, 352)
+
+[node name="Coin5" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(1608, 332)
+
+[node name="Coin6" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(1450, 452)
+
+[node name="Coin7" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(2114, 372)
+
+[node name="Coin8" parent="Level/Coins" instance=ExtResource("coin")]
+position = Vector2(2200, 452)
+
+[node name="Spikes" type="Node2D" parent="Level"]
+
+[node name="Spike1" parent="Level/Spikes" instance=ExtResource("spike")]
+position = Vector2(1200, 464)
+
+[node name="Spike2" parent="Level/Spikes" instance=ExtResource("spike")]
+position = Vector2(1400, 464)
+
+[node name="Spike3" parent="Level/Spikes" instance=ExtResource("spike")]
+position = Vector2(1980, 464)
+
+[node name="Door" parent="Level" instance=ExtResource("door")]
+position = Vector2(2330, 448)
+
+[node name="FallZone" type="Area2D" parent="Level"]
+position = Vector2(1200, 750)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/FallZone"]
+shape = SubResource("Rect_4000x100")
+
+[node name="Player" parent="Level" instance=ExtResource("player")]
+position = Vector2(80, 440)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Hearts" type="HBoxContainer" parent="UI/HUD"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 112.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Heart1" type="TextureRect" parent="UI/HUD/Hearts"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("heart")
+
+[node name="Heart2" type="TextureRect" parent="UI/HUD/Hearts"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("heart")
+
+[node name="Heart3" type="TextureRect" parent="UI/HUD/Hearts"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("heart")
+
+[node name="CoinLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "Монеты: 0 / 0"
+horizontal_alignment = 2
+
+[node name="HintLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 56.0
+offset_bottom = 92.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PausePanel" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="UI/PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Box" type="VBoxContainer" parent="UI/PausePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -90.0
+offset_right = 120.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="UI/PausePanel/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Пауза"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="UI/PausePanel/Box"]
+layout_mode = 2
+text = "Продолжить (Esc)"
+
+[node name="RestartButton" type="Button" parent="UI/PausePanel/Box"]
+layout_mode = 2
+text = "Заново (R)"
+
+[node name="EndPanel" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="UI/EndPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Box" type="VBoxContainer" parent="UI/EndPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -110.0
+offset_right = 160.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="UI/EndPanel/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+text = "Победа!"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="UI/EndPanel/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/EndPanel/Box"]
+layout_mode = 2
+text = "Играть снова (R)"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("music")
+volume_db = -8.0
+autoplay = true
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("hurt")
+
+[node name="DoorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("doorsnd")
+
+[node name="WinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("win")
+
+[node name="LoseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("lose")

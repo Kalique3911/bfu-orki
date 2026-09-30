@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmocoi8hl15tq"]
+
+[ext_resource type="Script" path="res://scripts/coin.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d0ffko4aposym" path="res://assets/sprites/world/coin_0.png" id="2_c"]
+[ext_resource type="Texture2D" uid="uid://davi1sghp6e73" path="res://assets/sprites/world/coin_1.png" id="3_c"]
+[ext_resource type="Texture2D" uid="uid://l4e68l2y3gmd" path="res://assets/sprites/world/coin_2.png" id="4_c"]
+[ext_resource type="Texture2D" uid="uid://bdxytiqibcfyt" path="res://assets/sprites/world/coin_3.png" id="5_c"]
+[ext_resource type="AudioStream" uid="uid://cewb3gfbr0g2i" path="res://assets/audio/coin.wav" id="9_snd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c"]
+radius = 11.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_c")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 8.0
+}]
+
+[node name="Coin" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_c")
+animation = &"spin"
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 14
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 60.0
+initial_velocity_max = 130.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(1, 0.82, 0.16, 1)
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_snd")
